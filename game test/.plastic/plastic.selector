@@ -1,4 +1,0 @@
-repository "game test@Siqius@cloud"
-  path "/"
-    br "/main"
-    co "/main"
