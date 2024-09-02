@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Body and Animation")]
+    [SerializeField] Animator animator;
+    [SerializeField] Transform bodyHolder;
+
+    [Header("Movement")]
     [SerializeField] float moveSpeed = 2f;
-    private PlayerInputHandler inputHandler;
+
+
+    [SerializeField] PlayerInputHandler inputHandler;
 
     Rigidbody2D rb;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        inputHandler = PlayerInputHandler.instance;
     }
 
     
@@ -27,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
         float y = inputHandler.MoveInput.y;
 
         Vector2 move = new Vector2(x, y).normalized * moveSpeed;
+
+        animator.SetFloat("Speed", move.magnitude);
+
         rb.velocity = move;
     }
 
@@ -40,5 +49,6 @@ public class PlayerMovement : MonoBehaviour
         Vector2 direction = new Vector2(dx, dy);
 
         transform.up = direction;
+        bodyHolder.up = Vector2.up;
     }
 }
