@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 2f;
+    private PlayerInputHandler inputHandler;
 
     Rigidbody2D rb;
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        inputHandler = PlayerInputHandler.instance;
     }
 
     
@@ -21,8 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+        float x = inputHandler.MoveInput.x;
+        float y = inputHandler.MoveInput.y;
 
         Vector2 move = new Vector2(x, y).normalized * moveSpeed;
         rb.velocity = move;
